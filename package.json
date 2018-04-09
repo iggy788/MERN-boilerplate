@@ -2,10 +2,10 @@
   "name": "MERN-boilerplate",
   "version": "1.0.0",
   "description": "MERN stack project boilerplate",
-  "author": "Eugene Cheung",
+  "author": "Mike Ignaczak",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arkon/MERN-boilerplate.git"
+    "url": "https://github.com/iggy788/MERN-boilerplate"
   },
   "license": "MIT",
   "private": true,
