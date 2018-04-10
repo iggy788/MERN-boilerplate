@@ -2,25 +2,10 @@ const User = require('../../models/User');
 const UserSession = require('../../models/UserSession');
 
 module.exports = (app) => {
-  // app.get('/api/counters', (req, res, next) => {
-  // 	Counter.find()
-  // 		.exec()
-  // 		.then((counter) => res.json(counter))
-  // 		.catch((err) => next(err));
-  // });
-
-  // app.post('/api/counters', function (req, res, next) {
-  // 	const counter = new Counter();
-
-  // 	counter.save()
-  // 		.then(() => res.json(counter))
-  // 		.catch((err) => next(err));
-  // });
-
   /*
    * Sign Up Route
    */
-  app.post('/api/account/signup', function (req, res, next) {
+  app.post('/api/account/signup', (req, res, next) => {
     const {
       body
     } = req;
@@ -100,14 +85,12 @@ module.exports = (app) => {
       });
     });
   });
-  /*
-   * Sign Up Route
-   */
+  // End Sign Up Route
 
   /*
    * Sign In Route
    */
-  app.post('/api/account/signin', function (req, res, next) {
+  app.post('/api/account/signin', (req, res, next) => {
 
     const {
       body
@@ -121,7 +104,7 @@ module.exports = (app) => {
       email
     } = body;
 
-	  if (!email) {
+    if (!email) {
       return res.send({
         success: false,
         message: 'Error: Email Cannot be Blank!'
@@ -176,10 +159,84 @@ module.exports = (app) => {
           message: 'Valid Sign In',
           token: doc._id
         });
-      });
-      /*
-       * End Sign In Route
-       */
+      }); // End Sign In Route
+
     });
   });
+
+  /*
+   * Verify Sign In
+   *
+   */
+  app.get('/api/account/verify', (req, res, next) => {
+    // Get Token
+    const {
+      query
+    } = req;
+    // ?token=test
+    const {
+      token
+    } = query;
+
+    // Verify the Token is Unique and NOT Deleted
+    UserSession.find({
+      _id: token,
+      isDeleted: false
+    }, (err, sessions) => {
+      if (err) {
+        return res.send({
+          success: false,
+          message: 'Error: Server Error'
+        });
+      } else if (sessions.length != 1) {
+        return res.send({
+          success: false,
+          message: 'Error: Invalid'
+        });
+      } else {
+        return res.send({
+          success: true,
+          message: 'You\'re Good'
+        });
+      }
+    });
+  }); // End Verify Token
+
+  /*
+   * Logout
+   *
+   */
+  app.get('/api/account/logout', (req, res, next) => {
+    // Get Token
+    const {
+      query
+    } = req;
+    // ?token=test
+    const {
+      token
+    } = query;
+
+    // Verify the Token is Unique and NOT Deleted
+    UserSession.findOneAndUpdate({
+      _id: token,
+      isDeleted: false
+    }, {
+      $set: {
+        isDeleted: true
+      }
+    }, null, (err, sessions) => {
+      if (err) {
+        return res.send({
+          success: false,
+          message: 'Error: Server Error'
+        });
+	  } else {
+        return res.send({
+          success: true,
+          message: 'You\'re Good'
+        });
+      }
+    });
+  }); // End Logout
+
 };
