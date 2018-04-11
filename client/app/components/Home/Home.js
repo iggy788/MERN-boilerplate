@@ -18,6 +18,7 @@ class Home extends Component {
 		signUpFirstName: '',
 		signUpLastName: ''
 	};
+
 	  this.onTextboxChangeSignInEmail = this.onTextboxChangeSignInEmail.bind(this);
 	  this.onTextboxChangeSignInPassword = this.onTextboxChangeSignInPassword.bind(this);
 	  this.onTextboxChangeSignUpEmail = this.onTextboxChangeSignUpEmail.bind(this);
@@ -88,15 +89,9 @@ class Home extends Component {
 	  });
 	}
 
-
+// Rendering the Current State of Home Class
 	render() {
-		const {
-			isLoading,
-			token,
-			signInError,
-			signInEmail,
-			signInPassword
-		} = this.state;
+		const { isLoading, token, signInError, signInEmail, signInPassword, signUpEmail, signUpPassword, signUpFirstName, signUpLastName } = this.state;
 
 		if (isLoading) {
 			return (<div><p>Loading...</p></div>);
@@ -116,9 +111,7 @@ class Home extends Component {
 							type='email'
 							placeholder='Email'
 							value={signInEmail}
-							onChange = {
-							  this.onTextboxChangeSignInEmail
-							}
+							onChange = {this.onTextboxChangeSignInEmail}
 
 						/>
 						<br />
@@ -126,9 +119,7 @@ class Home extends Component {
 							type='password'
 							placeholder='Password'
 							value={signInPassword}
-							onChange = {
-							  this.onTextboxChangeSignInPassword
-							}
+							onChange = {this.onTextboxChangeSignInPassword}
 						/>
 						<br />
 						<button>Sign In!</button>
@@ -141,36 +132,28 @@ class Home extends Component {
 							type='text'
 							placeholder='First Name'
 							value={signUpFirstName}
-							onChange = {
-							  this.onTextboxChangeSignUpFirstName
-							}
+							onChange = {this.onTextboxChangeSignUpFirstName}
 						/>
 						<br />
 						<input
 							type='text'
 							placeholder='Last Name'
 							value={signUpLastName}
-							onChange = {
-							  this.onTextboxChangeSignUpLastName
-							}
+							onChange = {this.onTextboxChangeSignUpLastName}
 						/>
 						<br />
 						<input
 							type='email'
 							placeholder='Email'
 							value={signUpEmail}
-							onChange = {
-							  this.onTextboxChangeSignUpEmail
-							}
+							onChange = {this.onTextboxChangeSignUpEmail}
 						/>
 						<br />
 						<input
 							type='password'
 							placeholder='Password'
 							value={signUpPassword}
-							onChange = {
-							  this.onTextboxChangeSignUpPassword
-							}
+							onChange = {this.onTextboxChangeSignUpPassword}
 						/>
 						<br />
 						<button>Sign In!</button>
@@ -187,39 +170,3 @@ class Home extends Component {
 }
 
 export default Home;
-
-
-  // GET Request Example
-  /*fetch('/api/counters')
-    .then(res => res.json())
-    .then(json => {
-  	  this.setState({
-  		  counters: json
-  		});
-  	});*/
-
-  // POST Request Example
-  /*fetch('/api/counters', { method: 'POST' })
-    .then(res => res.json())
-    .then(json => {
-  	let data = this.state.counters;
-  	data.push(json);
-  	this.setState({
-  	  counters: data
-  	});
-    });*/
-
-  // PUT Request Example
-  /*fetch(`/api/counters/${id}/increment`, { method: 'PUT' })
-  	.then(res => res.json())
-  	.then(json => {
-  	this._modifyCounter(index, json);
-  	});*/
-
-  // DELETE Request Example
-  /*fetch(`/api/counters/${id}`, {
-	method: 'DELETE'
-	})
-	.then(_ => {
-	this._modifyCounter(index, null);
-	});*/
