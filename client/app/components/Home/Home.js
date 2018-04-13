@@ -19,8 +19,8 @@ class Home extends Component {
       signUpLastName: ''
     };
 
+/////********************************************************
     // Bind to React Component
-    // ********************************************************
     this.onTextboxChangeSignInEmail = this.onTextboxChangeSignInEmail.bind(
       this
     );
@@ -45,7 +45,9 @@ class Home extends Component {
     this.logout = this.logout.bind(this);
   }
 
-  // ********************************************************
+/////********************************************************
+// Initialization that requires DOM nodes should go here is invoked immediately after a component is mounted
+// Calling setState() in this method will trigger an extra rendering, but it will happen before the browser updates the screen.
   componentDidMount() {
     const obj = getFromStorage('the_main_app');
     if (obj && obj.token) {
@@ -117,7 +119,7 @@ class Home extends Component {
         }
       });
   }
-  // ********************************************************
+  /////********************************************************
   // Sign In Function
   onSignIn() {
     // Grab State
@@ -157,7 +159,7 @@ class Home extends Component {
         }
       });
   }
-  // ********************************************************
+/////********************************************************
   // Logout Function
   logout() {
     this.setState({
@@ -187,8 +189,8 @@ class Home extends Component {
       });
     }
   }
-  // ********************************************************
-  // Changes to State
+/////********************************************************
+  // Functions that Occurs When the Event Parameter Changes the Props State
   onTextboxChangeSignInEmail(event) {
     this.setState({
       signInEmail: event.target.value
@@ -224,7 +226,7 @@ class Home extends Component {
       signUpLastName: event.target.value
     });
   }
-  // ********************************************************
+/////********************************************************
   // Rendering the Current State of Home Class
   render() {
     const {

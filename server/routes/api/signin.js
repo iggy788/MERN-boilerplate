@@ -3,22 +3,14 @@ const UserSession = require('../../models/UserSession');
 
 module.exports = (app) => {
   /*
-   * Sign Up Route
+   ** Sign Up Route
    */
   app.post('/api/account/signup', (req, res, next) => {
-    const {
-      body
-    } = req;
+    const {body} = req;
 
-    const {
-      firstName,
-      lastName,
-      password
-    } = body;
+    const {firstName,lastName,password} = body;
 
-    let {
-      email
-    } = body;
+    let {email} = body;
 
     if (!firstName) {
       return res.send({
@@ -88,21 +80,13 @@ module.exports = (app) => {
   // End Sign Up Route
 
   /*
-   * Sign In Route
+   ** Sign In Route
    */
   app.post('/api/account/signin', (req, res, next) => {
 
-    const {
-      body
-    } = req;
-
-    const {
-      password
-    } = body;
-
-    let {
-      email
-    } = body;
+    const {body} = req;
+    const {password} = body;
+    let {email} = body;
 
     if (!email) {
       return res.send({
@@ -165,8 +149,7 @@ module.exports = (app) => {
   });
 
   /*
-   * Verify Sign In
-   *
+   ** Verify Sign In
    */
   app.get('/api/account/verify', (req, res, next) => {
     // Get Token
@@ -203,40 +186,40 @@ module.exports = (app) => {
   }); // End Verify Token
 
   /*
-   * Logout
-   *
+   ** Logout
    */
   app.get('/api/account/logout', (req, res, next) => {
-    // Get Token
-    const {
-      query
-    } = req;
-    // ?token=test
-    const {
-      token
-    } = query;
+	// Get Token
+	// token=test
+    const {query} = req;
+    const {token} = query;
 
     // Verify the Token is Unique and NOT Deleted
-    UserSession.findOneAndUpdate({
-      _id: token,
-      isDeleted: false
-    }, {
-      $set: {
-        isDeleted: true
-      }
-    }, null, (err, sessions) => {
-      if (err) {
-        return res.send({
-          success: false,
-          message: 'Error: Server Error'
-        });
-	  } else {
-        return res.send({
-          success: true,
-          message: 'You\'re Good'
-        });
-      }
-    });
-  }); // End Logout
-
+	  UserSession.findOneAndUpdate(
+		  {
+			  _id: token,
+			  isDeleted: false
+		  },
+		  {
+			  $set: {
+				  isDeleted: true
+			  }
+		  }, null, (err, sessions) => {
+			  if (err) {
+				  return res.send(
+					  {
+						  success: false,
+						  message: 'Error: Server Error'
+					  });
+			  } else {
+				  return res.send(
+					  {
+						  success: true,
+						  message: 'You\'re Good'
+					  }
+				  );
+			  }
+		  }
+	  );
+	}); // End Logout
 };

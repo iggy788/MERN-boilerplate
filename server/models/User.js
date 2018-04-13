@@ -18,6 +18,14 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: ''
   },
+//   crutchWords:{
+// 	[
+// 		{
+// 			type: Schema.Types.ObjectId,
+// 			ref: 'crutchWords'
+// 		}
+// 	]
+//   },
   isDeleted: {
     type: Boolean,
     default: false
