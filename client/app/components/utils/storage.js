@@ -14,6 +14,8 @@ export function getFromStorage(key) {
 	}
 }
 
+/////********************************************************
+// Set the  the Current State of Home Class
 export function setInStorage(key, obj) {
 	if (!key) {
 		console.error('Error: Key is Missing!');
